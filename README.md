@@ -68,3 +68,16 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+when pulling code from git:
+    1. run yarn in terminal to install dependencies
+    2. may have to update Node
+        a. run nvm ls-remote to see all versions of Node
+        b. run nvm install [version] 
+    3. run yarn start to open app in localhost:3000
+
+
+
+
+
