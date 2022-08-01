@@ -1,36 +1,37 @@
 import { legacy_createStore as createStore } from "redux"
 import { compose, applyMiddleware } from 'redux';
-// import logger from 'redux-logger';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 
 import { rootReducer } from './root-reducer';
 
-//currying a function is a function that returns another function
-// example:
-// const curryFunc = (a) => (b, c) => {
-//   a + b - c;
-// }
-// const with3 = curryFunc(3);
-// with3(2, 4);
-//    this evaluates to 3 + 2 - 4
+const persistConfig = {
+  key: 'root',
+  storage,
+  blacklist: ['user']
+};
 
-//this will be a sequence curry functions
-const loggerMiddleware = (store) => (next) => (action) => {
-  //if there is no action type
-  if (!action.type) {
-    return next(action);
-  }
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-  console.log('type: ', action.type);
-  console.log('payload: ', action.payload);
-  console.log('current state: ', store.getState());
+//only want to render logger in development
+//.filter(Boolean) filters out anything that is false
+//instead it will evaluate to an empty object if we are not in development
+const middleWares = [process.env.NODE_ENV === 'development' && logger, thunk].filter(Boolean);
 
-  next(action);
+//allow Redux Devtools
+const composeEnhancer = 
+  (process.env.NODE_ENV !== 'production' && 
+    window && 
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || 
+  compose;
 
-  console.log('next state: ', store.getState());
-}
+const composedEnhancers = composeEnhancer(applyMiddleware(...middleWares));
 
-const middleWares = [loggerMiddleware];
+export const store = createStore(
+  persistedReducer, 
+  undefined, 
+  composedEnhancers);
 
-const composedEnhancers = compose(applyMiddleware(...middleWares));
-
-export const store = createStore(rootReducer, undefined, composedEnhancers);
+export const persistor = persistStore(store);
