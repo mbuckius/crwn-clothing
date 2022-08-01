@@ -10,7 +10,6 @@ import { CategoryContainer, Title } from './category.styles'
 
 const Category = () => {
     const { category } = useParams();
-    console.log('render/re-rendering category component');
 
     //useSelector accesses the redux store's state
     const categoriesMap = useSelector(selectCategoriesMap);
@@ -20,7 +19,6 @@ const Category = () => {
 
     //update products that the category uses when the cateogry or categoriesMap changes
     useEffect (() => {
-        console.log('effect fired calling setProducts');
         setProducts(categoriesMap[category]);
     }, [category, categoriesMap]);
 
