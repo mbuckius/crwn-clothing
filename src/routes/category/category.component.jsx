@@ -1,30 +1,39 @@
-import { useContext, useState, useEffect, Fragment } from "react";
+import { useState, useEffect, Fragment } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+
 import ProductCard from "../../components/product-card/product-card.component";
 
-import { CategoriesContext } from "../../context/categories.context";
-import './category.styles.scss'
+import { selectCategoriesMap } from "../../store/categories/category.selector";
+
+import { CategoryContainer, Title } from './category.styles'
 
 const Category = () => {
     const { category } = useParams();
-    const { categoriesMap } = useContext(CategoriesContext);
+    console.log('render/re-rendering category component');
+
+    //useSelector accesses the redux store's state
+    const categoriesMap = useSelector(selectCategoriesMap);
     
     const [products, setProducts] = useState(categoriesMap[category]);
+    
 
+    //update products that the category uses when the cateogry or categoriesMap changes
     useEffect (() => {
+        console.log('effect fired calling setProducts');
         setProducts(categoriesMap[category]);
     }, [category, categoriesMap]);
 
     return (
         <Fragment>
-            <h2 className="category-title">{category.toUpperCase()}</h2>
+            <Title>{category.toUpperCase()}</Title>
             
-            <div className="category-container">
+            <CategoryContainer>
                 
                 { products &&
                     products.map((product) => <ProductCard key={product.id} product={product} />)
                 }
-            </div>
+            </CategoryContainer>
         </Fragment>
     );
 };

@@ -1,6 +1,5 @@
 import Button, {BUTTON_TYPE_CLASSES} from '../button/button.component';
 
-import { UserContext } from '../../context/user.context';
 import { CartContext } from '../../context/cart.context';
 import { useContext } from 'react';
 
