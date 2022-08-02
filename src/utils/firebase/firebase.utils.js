@@ -15,7 +15,6 @@ import {
     doc,
     getDoc,
     setDoc,
-    connectFirestoreEmulator,
     collection,
     writeBatch,
     query,

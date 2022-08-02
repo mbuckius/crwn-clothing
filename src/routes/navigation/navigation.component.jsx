@@ -21,6 +21,10 @@ import {
 
 const Navigation = () => {
   const currentUser = useSelector(selectCurrentUser);
+  if (currentUser) {
+    console.log('current user: ', currentUser.name);
+  }
+  
   const isCartOpen = useSelector(selectIsCartOpen);
 
   return (
@@ -31,7 +35,7 @@ const Navigation = () => {
         </LogoContainer>
         <NavLinks>
           <NavLink to='/shop'>SHOP</NavLink>
-
+          <NavLink to='/contact'>Contact Us</NavLink>
           {currentUser ? (
             <NavLink as='span' onClick={signOutUser}>
               SIGN OUT
