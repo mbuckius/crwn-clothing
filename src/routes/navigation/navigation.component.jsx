@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux';
 import CartIcon from '../../components/cart-icon/cart-icon.component';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
 
-import { selectIsCartOpen } from '../../store/cart/cart.selector';
 import { selectCurrentUser } from '../../store/user/user.selector';
+import { selectIsCartOpen } from '../../store/cart/cart.selector';
 
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
 import { signOutUser } from '../../utils/firebase/firebase.utils';
@@ -18,13 +18,8 @@ import {
   LogoContainer,
 } from './navigation.styles';
 
-
 const Navigation = () => {
   const currentUser = useSelector(selectCurrentUser);
-  if (currentUser) {
-    console.log('current user: ', currentUser.name);
-  }
-  
   const isCartOpen = useSelector(selectIsCartOpen);
 
   return (
@@ -35,7 +30,7 @@ const Navigation = () => {
         </LogoContainer>
         <NavLinks>
           <NavLink to='/shop'>SHOP</NavLink>
-          <NavLink to='/contact'>Contact Us</NavLink>
+
           {currentUser ? (
             <NavLink as='span' onClick={signOutUser}>
               SIGN OUT

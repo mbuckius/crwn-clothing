@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ProductCardContainer = styled.div`
+export const ProductCartContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -9,7 +9,7 @@ export const ProductCardContainer = styled.div`
   position: relative;
 
   img {
-    width: 300px;
+    width: 100%;
     height: 95%;
     object-fit: cover;
     margin-bottom: 5px;
@@ -50,4 +50,4 @@ export const Name = styled.span`
 
 export const Price = styled.span`
   width: 10%;
-`
+`;
