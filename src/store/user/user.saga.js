@@ -65,42 +65,32 @@ export function* isUserAuthenticated() {
   }
 }
 
-//recieve action, but off action we just want payload
 export function* signUp({ payload: { email, password, displayName } }) {
   try {
-
-    //create user object by passing email and password
     const { user } = yield call(
       createAuthUserWithEmailAndPassword,
       email,
       password
     );
-
-    //once that succeeds we can call sign up success
     yield put(signUpSuccess(user, { displayName }));
-
   } catch (error) {
     yield put(signUpFailed(error));
   }
 }
 
-//sign out generator function
 export function* signOut() {
   try {
     yield call(signOutUser);
     yield put(signOutSuccess());
-
   } catch (error) {
     yield put(signOutFailed(error));
   }
 }
 
-//receives action from signUpSuccess, destructure it
 export function* signInAfterSignUp({ payload: { user, additionalDetails } }) {
   yield call(getSnapshotFromUserAuth, user, additionalDetails);
 }
 
-//ENTRY POINT SAGAS
 export function* onGoogleSignInStart() {
   yield takeLatest(USER_ACTION_TYPES.GOOGLE_SIGN_IN_START, signInWithGoogle);
 }
@@ -125,7 +115,6 @@ export function* onSignOutStart() {
   yield takeLatest(USER_ACTION_TYPES.SIGN_OUT_START, signOut);
 }
 
-//make sure we are listening for entry points
 export function* userSagas() {
   yield all([
     call(onCheckUserSession),
