@@ -24,6 +24,7 @@ export const NavLinks = styled.div`
 `;
 
 export const NavLink = styled(Link)`
+  text-transform: uppercase;
   padding: 10px 15px;
   cursor: pointer;
 `;

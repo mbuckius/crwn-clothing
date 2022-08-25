@@ -6,6 +6,7 @@ import CartIcon from '../../components/cart-icon/cart-icon.component';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
 
 import { selectIsCartOpen } from '../../store/cart/cart.selector';
+import { setIsCartOpen } from '../../store/cart/cart.action';
 import { selectCurrentUser } from '../../store/user/user.selector';
 import { signOutStart } from '../../store/user/user.action';
 
@@ -25,21 +26,25 @@ const Navigation = () => {
 
   const signOutUser = () => dispatch(signOutStart());
 
+  
+  // Close dropdown menus when user navigates to a different page
+  const hideDropdownMenu = () => dispatch(setIsCartOpen(false));
+
   return (
     <Fragment>
       <NavigationContainer>
-        <LogoContainer to='/'>
+        <LogoContainer to='/'  onClick={hideDropdownMenu}>
           <CrwnLogo className='logo' />
         </LogoContainer>
         <NavLinks>
-          <NavLink to='/shop'>SHOP</NavLink>
+          <NavLink to='/shop'  onClick={hideDropdownMenu}>SHOP</NavLink>
 
           {currentUser ? (
             <NavLink as='span' onClick={signOutUser}>
-              SIGN OUT
+              HI, {currentUser.displayName}
             </NavLink>
           ) : (
-            <NavLink to='/auth'>SIGN IN</NavLink>
+            <NavLink to='/auth'  onClick={hideDropdownMenu}>SIGN IN</NavLink>
           )}
           <CartIcon />
         </NavLinks>
