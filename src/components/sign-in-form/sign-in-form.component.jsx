@@ -33,6 +33,8 @@ const SignInForm = () => {
 
     try {
       dispatch(emailSignInStart(email, password));
+
+      alert("Sign in successful!");
       resetFormFields();
     } catch (error) {
       console.log('user sign in failed', error);
