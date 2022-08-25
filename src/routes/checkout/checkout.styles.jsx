@@ -9,6 +9,11 @@ export const CheckoutContainer = styled.div`
   margin: 50px auto 0;
 `;
 
+export const Title = styled.h2`
+  font-size: 40px;
+  margin-bottom: 25px;
+`;
+
 export const CheckoutHeader = styled.div`
   width: 100%;
   padding: 10px 0;
