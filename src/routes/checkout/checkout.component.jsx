@@ -10,6 +10,7 @@ import PaymentForm from '../../components/payment-form/payment-form.component';
 
 import {
   CheckoutContainer,
+  Title,
   CheckoutHeader,
   HeaderBlock,
   Total,
@@ -21,6 +22,7 @@ const Checkout = () => {
 
   return (
     <CheckoutContainer>
+      <Title>Shopping Bag</Title>
       <CheckoutHeader>
         <HeaderBlock>
           <span>Product</span>
