@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const CategoryContainer = styled.div`
+  margin: 50px auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   column-gap: 20px;
