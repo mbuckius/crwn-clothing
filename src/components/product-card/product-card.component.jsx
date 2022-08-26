@@ -12,7 +12,7 @@ import {
   Price,
 } from './product-card.styles';
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, category }) => {
   // Destructure product object
   const { id, name, price, imageUrl } = product;
   const dispatch = useDispatch();
@@ -24,9 +24,9 @@ const ProductCard = ({ product }) => {
   const addProductToCart = () => dispatch(addItemToCart(cartItems, product));
 
   return (
-    <ProductCardContainer>
+    <ProductCardContainer to={`/shop/${category}/${id}`}>
       <img src={imageUrl} alt={`${name}`} />
-      <Footer to={`${id}`}>
+      <Footer>
         <Name>{name}</Name>
         <Price>{price}</Price>
       </Footer>
@@ -34,7 +34,7 @@ const ProductCard = ({ product }) => {
         buttonType={BUTTON_TYPE_CLASSES.inverted}
         onClick={addProductToCart}
       >
-        Add to cart
+        See details
       </Button>
     </ProductCardContainer>
   );
