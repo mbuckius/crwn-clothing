@@ -73,9 +73,8 @@ const Product = () => {
                     
                     <Info>
                         <Title>{product.name.toUpperCase()}</Title>
-                        <p>{`$${product.price}`}</p>
-                        
-                        <ProductDescription description={product.description} material={product.material} />
+                
+                        <ProductDescription description={product.description} material={product.material} price={product.price} />
                         
                         <Button
                             buttonType={BUTTON_TYPE_CLASSES.inverted}
