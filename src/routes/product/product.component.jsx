@@ -16,7 +16,8 @@ import {
 
 import { 
     ProductContainer, 
-    Title 
+    Title,
+    Info
 } from './product.styles';
 
 const Product = () => {
@@ -70,7 +71,7 @@ const Product = () => {
                 <ProductContainer>
                     <img src={product.imageUrl} alt={`${product.name}`}/>
                     
-                    <div>
+                    <Info>
                         <Title>{product.name.toUpperCase()}</Title>
                         <p>{`$${product.price}`}</p>
                         
@@ -82,7 +83,7 @@ const Product = () => {
                         >
                             Add to cart
                         </Button>
-                    </div>
+                    </Info>
                 </ProductContainer>
             )
         }
