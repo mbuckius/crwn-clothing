@@ -24,6 +24,7 @@ export const Title = styled.h2`
 
 export const Info = styled.div`
     position: relative;
+    width: 100%;
 
     Button {
         position: absolute;
