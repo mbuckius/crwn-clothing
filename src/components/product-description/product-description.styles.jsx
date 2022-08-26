@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ProductDescriptionContainer = styled.div`
     width: 100%;
-    height: 500px;
+    max-height: 450px;
     margin: 20px 0px;
     font-size: 18px;
     overflow: scroll;
