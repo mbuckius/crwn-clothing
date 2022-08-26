@@ -13,11 +13,17 @@ import {
 import { CategoryContainer, Title } from './category.styles';
 
 const Category = () => {
+  // Get category from URL using useParams()
   const { category } = useParams();
+
+  // Get categoriesMap and isLoading state using selectors
   const categoriesMap = useSelector(selectCategoriesMap);
   const isLoading = useSelector(selectCategoriesIsLoading);
+
+  // Get list of products from matching category
   const [products, setProducts] = useState(categoriesMap[category]);
 
+  // Change products list whenever category or categoriesMap changes
   useEffect(() => {
     setProducts(categoriesMap[category]);
   }, [category, categoriesMap]);
