@@ -24,8 +24,7 @@ const ProductDescription = ({ description, material, price }) => {
                 <Subheading>
                     <h4>Details:</h4>
                     { showDetails? (<span>&#8722;</span>) : (<span>&#43;</span>) } 
-                </Subheading>
-                
+                </Subheading>            
                 { showDetails && (description? parse(description) : "description")}
             </Info>
 
