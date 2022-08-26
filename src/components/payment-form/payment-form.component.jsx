@@ -69,7 +69,6 @@ const PaymentForm = () => {
         }
     };
 
-
     return (
         <PaymentFormContainer>
             <FormContainer onSubmit={paymentHandler}>
