@@ -13,11 +13,11 @@ const ProductDescription = ({ description, material }) => {
 
     return (
         <ProductDescriptionContainer>
-            {parse(description)}
+            {description? parse(description) : "description"}
             <br />
             <br />
             <p>Material and Care:</p>
-            {parse(material)}
+            {material? parse(material) : "material"}
         </ProductDescriptionContainer>
     )
 
