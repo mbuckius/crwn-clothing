@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-export const ProductCartContainer = styled.div`
+export const ProductCardContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -35,7 +36,8 @@ export const ProductCartContainer = styled.div`
   }
 `;
 
-export const Footer = styled.div`
+export const Footer = styled(Link)`
+  cursor: pointer;
   width: 100%;
   height: 5%;
   display: flex;
