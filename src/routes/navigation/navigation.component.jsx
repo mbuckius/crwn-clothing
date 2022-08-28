@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import CartIcon from '../../components/cart-icon/cart-icon.component';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
+import SearchBox from '../../components/search-box/search-box.component';
 
 import { selectIsCartOpen } from '../../store/cart/cart.selector';
 import { setIsCartOpen } from '../../store/cart/cart.action';
@@ -25,7 +26,6 @@ const Navigation = () => {
   const isCartOpen = useSelector(selectIsCartOpen);
 
   const signOutUser = () => dispatch(signOutStart());
-
   
   // Close dropdown menus when user navigates to a different page
   const hideDropdownMenu = () => dispatch(setIsCartOpen(false));
@@ -37,6 +37,7 @@ const Navigation = () => {
           <CrwnLogo className='logo' />
         </LogoContainer>
         <NavLinks>
+          <NavLink to='/search' onClick={hideDropdownMenu}>SEARCH</NavLink>
           <NavLink to='/shop'  onClick={hideDropdownMenu}>SHOP</NavLink>
 
           {currentUser ? (
