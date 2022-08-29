@@ -1,6 +1,6 @@
 import ProductCard from "../product-card/product-card.component";
 
-import { ResultsContainer } from "./search-results.styles";
+import { ResultsContainer, ProductCards } from "./search-results.styles";
 
 const SearchResults = ({ filteredProductsMap, resultCount }) => {
     console.log(filteredProductsMap);
@@ -8,20 +8,21 @@ const SearchResults = ({ filteredProductsMap, resultCount }) => {
 
     return (
         <div>
-            <h2>search results</h2>
-
             { resultCount ? (
-                Object.keys(filteredProductsMap).map((category) => (
-                    filteredProductsMap[category].map(product => {
-                        return (
-                            <ResultsContainer>
-                                <ProductCard product={product} category={category}/>
-                            </ResultsContainer>
-                            
-                        );
-                    })
+                <ResultsContainer>
+                    <h2>{resultCount} Search results:</h2>
 
-                ))
+                    <ProductCards>
+                        {Object.keys(filteredProductsMap).map((category) => (
+                            filteredProductsMap[category].map(product => {
+                                return (
+                                    <ProductCard key={product.id} product={product} category={category}/>
+                                );
+                            })
+                        ))}
+                    </ProductCards>
+                </ResultsContainer>
+                
             ) : (
                 <p>No results</p>
             )}
