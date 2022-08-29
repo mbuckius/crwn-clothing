@@ -5,11 +5,11 @@ import { Routes, Route } from 'react-router-dom';
 
 import Home from './routes/home/home.component';
 import Navigation from './routes/navigation/navigation.component';
-import Search from './routes/search/search.component';
 import Authentication from './routes/authentication/authentication.component';
 import Shop from './routes/shop/shop.component';
 import Checkout from './routes/checkout/checkout.component';
 import { checkUserSession } from './store/user/user.action';
+import SearchRoute from './routes/search-route/search-route.component';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const App = () => {
     <Routes>
       <Route path='/' element={<Navigation />}>
         <Route index element={<Home />} />
-        <Route path='search' element={<Search />} />
+        <Route path='search/*' element={<SearchRoute />} />
         <Route path='shop/*' element={<Shop />} />
         <Route path='auth' element={<Authentication />} />
         <Route path='checkout' element={<Checkout />} />
