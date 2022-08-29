@@ -41,7 +41,9 @@ const SearchResults = () => {
             
             // Create temp array which will hold filtered products in current category
             const temp = (categoriesMap[category]).filter((product) => {
-                return product.name.toLocaleLowerCase().includes(searchField);
+                return (product.name.toLocaleLowerCase().includes(searchField) 
+                || product.description?.toLocaleLowerCase().includes(searchField)
+                || product.material?.toLocaleLowerCase().includes(searchField));
             });
             
             // Update tempMap and resultCount
