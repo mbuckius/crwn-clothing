@@ -22,6 +22,8 @@ const CartDropdown = () => {
   const cartItems = useSelector(selectCartItems);
   const isCartOpen = useSelector(selectIsCartOpen);
 
+  const hideDropdown = () => dispatch(setIsCartOpen(false));
+
   const navigate = useNavigate();
 
   const goToCheckoutHandler = () => {
@@ -31,7 +33,7 @@ const CartDropdown = () => {
   };
 
   return (
-    <CartDropdownContainer>
+    <CartDropdownContainer onMouseLeave={hideDropdown}>
       <CartItems>
         {cartItems.length ? (
           cartItems.map((item) => <CartItem key={item.id} cartItem={item} />)
