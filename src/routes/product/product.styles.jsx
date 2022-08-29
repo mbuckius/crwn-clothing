@@ -17,6 +17,11 @@ export const ProductContainer = styled.div`
       }   
 `;
 
+// export const FullScreen = styled.img`
+//       height: 100vh;
+      
+// `
+
 export const Title = styled.h2`
     font-size: 40px;
     justify-content: center;
