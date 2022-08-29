@@ -58,31 +58,27 @@ const Product = () => {
         <Spinner />
       ) : (
         <div>
-          {product &&
-             (
-                <ProductContainer>
+          {product && (
+              <ProductContainer>
+                  <img onClick={toggleIsFullScreen} src={product.imageUrl} alt={`${product.name}`}/>
+                  
+                  <Info>
+                    <Title>{product.name.toUpperCase()}</Title>
+            
+                    <ProductDescription description={product.description} material={product.material} price={product.price} />
                     
-                    <img onClick={toggleIsFullScreen} src={product.imageUrl} alt={`${product.name}`}/>
-                   
-                    <Info>
-                        <Title>{product.name.toUpperCase()}</Title>
-                
-                        <ProductDescription description={product.description} material={product.material} price={product.price} />
-                        
-                        <Button
-                            buttonType={BUTTON_TYPE_CLASSES.inverted}
-                            onClick={addProductToCart}
-                        >
-                            Add to cart
-                        </Button>
-                    </Info>
-                </ProductContainer>
-            )
-        }
+                    <Button
+                        buttonType={BUTTON_TYPE_CLASSES.inverted}
+                        onClick={addProductToCart}
+                    >
+                        Add to cart
+                    </Button>
+                  </Info>
+              </ProductContainer>
+          )}
         </div>
       )}
     </Fragment>
-    
   );
 };
 
