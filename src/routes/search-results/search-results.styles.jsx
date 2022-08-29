@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
-export const ResultsContainer = styled.div`
-    
+export const Title = styled.h2`
+    text-transform: uppercase;
+    margin: 25px 0px;
+    text-align: center;
 `;
 
 export const ProductCards = styled.div`
