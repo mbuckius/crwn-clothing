@@ -16,6 +16,7 @@ import {
 
 import { 
     ProductContainer, 
+    FullScreen,
     Title,
     Info
 } from './product.styles';
@@ -33,32 +34,23 @@ const Product = () => {
 
     // Get list of products from matching category
     const [products, setProducts] = useState(categoriesMap[category]);
-
-    // const [product, setProduct] = useState(products?.find((element) => {
-    //     return element.name === name;
-    // }));
+    const [isFullScreen, setIsFullScreen] = useState(false);
     
     // Find the matching object in products array based on id
     const product = products?.find((element) => {
         return element.id === parseInt(id, 10);
     });    
-    
+
     // onClick function when user presses "Add to cart" button
     // Updates the cartItems with product
     const addProductToCart = () => dispatch(addItemToCart(cartItems, product));
+
+    const toggleIsFullScreen = () => setIsFullScreen(!isFullScreen);
     
     // Change products list whenever category or categoriesMap changes
     useEffect(() => {
         setProducts(categoriesMap[category]);
-        
-
-        // setProduct(products?.find((element) => {
-        //     return element.name === name;
-        // }));
-        // console.log(product);
-        
     }, [category, categoriesMap]);
-
     
   return (
     <Fragment>
@@ -69,8 +61,9 @@ const Product = () => {
           {product &&
              (
                 <ProductContainer>
-                    <img src={product.imageUrl} alt={`${product.name}`}/>
                     
+                    <img onClick={toggleIsFullScreen} src={product.imageUrl} alt={`${product.name}`}/>
+                   
                     <Info>
                         <Title>{product.name.toUpperCase()}</Title>
                 
