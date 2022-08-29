@@ -1,8 +1,7 @@
-// import './search-box.styles.jsx'
+import { SearchBoxContainer } from "./search-box.styles";
  
-const SearchBox = ({className, placeholder, onChangeHandler, onKeyPress }) => (
-    <input 
-        className={`search-box ${ className }`}
+const SearchBox = ({ placeholder, onChangeHandler, onKeyPress }) => (
+    <SearchBoxContainer
         type='search' 
         placeholder={ placeholder } 
         onChange={ onChangeHandler } //onChange runs whenever change happens on input
