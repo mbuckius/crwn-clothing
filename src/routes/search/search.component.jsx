@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import Spinner from '../../components/spinner/spinner.component';
 import SearchBox from "../../components/search-box/search-box.component";
-import ProductCard from '../../components/product-card/product-card.component';
 import SearchResults from '../../components/search-results/search-results.component';
 
 import { fetchCategoriesStart } from '../../store/categories/category.action';
@@ -11,6 +10,8 @@ import {
     selectCategoriesMap,
     selectCategoriesIsLoading,
 } from '../../store/categories/category.selector';
+
+import { SearchContainer, Title } from './search.styles';
 
 const Search = () => {
     const dispatch = useDispatch();
@@ -29,14 +30,6 @@ const Search = () => {
     const [products, setProducts] = useState([]);
     const [filteredProductsMap, setFilteredProductsMap] = useState(categoriesMap);
     const [resultCount, setResultCount] = useState(0);
-    
-
-    // var filteredProductsMap = JSON.parse(JSON.stringify(categoriesMap));
-   
-    
-    // console.log("categoriesMap", categoriesMap);
-    // console.log("filteredProductsMap", filteredProductsMap);
-    // console.log(resultCount);
     
     // called when input in SearchBox changes (user types/deletes letters)
     const onSearchChange = (event) => {
@@ -57,47 +50,30 @@ const Search = () => {
         }
     };
 
+    // When searchField changes, filter categoriesMap with includes
     useEffect(() => {
-
+        // reset resultCount 
         setResultCount(0);
+
+        // create a tempMap which has same contents as categoriesMap
         var tempMap = JSON.parse(JSON.stringify(categoriesMap));
         
+        // for each category in categoriesMap 
         Object.keys(categoriesMap).map((category) => {
             
+            // Create temp array which will hold filtered products in current category
             const temp = (categoriesMap[category]).filter((product) => {
-                // console.log(product);
                 return product.name.toLocaleLowerCase().includes(searchField);
             });
             
+            // Update tempMap and resultCount
             tempMap[category] = temp;
-            
             setResultCount(prevCount => (prevCount + temp.length));
-            
         });
 
-       
-
-        setFilteredProductsMap(tempMap)
-    
-        // const newFilteredProducts = products.filter((product) => {
-        //   return product.name.toLocaleLowerCase().includes(searchField);
-        // });
-    
-        // setFilteredProducts(newFilteredProducts);
-    }, [searchField]); 
-
-    // Change products list whenever categoriesMap changes
-    useEffect(() => {
-        // Reset products array
-        setProducts([]);
-        const categories = Object.keys(categoriesMap);
-
-        if (!isLoading) {
-            categories.map((category) => {
-                setProducts(prevProds => [...prevProds, ...categoriesMap[category]]);
-            });
-        } 
-    }, [categoriesMap]);
+        // Update filteredProductsMap
+        setFilteredProductsMap(tempMap);
+    }, [searchField, categoriesMap]); 
 
     return (
         <Fragment>
@@ -106,11 +82,10 @@ const Search = () => {
             ) : (
                 <div>
                     {products && (
-                        <div>
-                            <h2>Search Page</h2>
+                        <SearchContainer>
+                            <Title>Search</Title>
                             <SearchBox 
-                                className ='product-search-box' 
-                                placeholder='Search for Products' 
+                                placeholder='&#128269;  Search for Products' 
                                 onChangeHandler ={ onSearchChange }
                                 onKeyPress = { onEnter } 
                             />
@@ -118,7 +93,7 @@ const Search = () => {
                             {searchField &&
                                 <SearchResults filteredProductsMap={ filteredProductsMap } resultCount={ resultCount }/>
                             }
-                        </div>
+                        </SearchContainer>
                     )}
                 </div>
             )}
