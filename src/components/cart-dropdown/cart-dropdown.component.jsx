@@ -18,14 +18,14 @@ import {
 
 const CartDropdown = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  // Use selector to get cartItems and isCartOpen
   const cartItems = useSelector(selectCartItems);
   const isCartOpen = useSelector(selectIsCartOpen);
 
   const hideDropdown = () => dispatch(setIsCartOpen(false));
-
-  const navigate = useNavigate();
-
+  
   const goToCheckoutHandler = () => {
     //hide cart dropdown when moving to checkout
     dispatch(setIsCartOpen(!isCartOpen));
