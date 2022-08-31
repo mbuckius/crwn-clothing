@@ -1,5 +1,5 @@
-import { Fragment } from 'react';
-import { Outlet } from 'react-router-dom';
+import { useState, Fragment } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import CartIcon from '../../components/cart-icon/cart-icon.component';
@@ -22,6 +22,8 @@ import {
 
 const Navigation = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(selectIsCartOpen);
 
@@ -29,6 +31,23 @@ const Navigation = () => {
   
   // Close dropdown menus when user navigates to a different page
   const hideDropdownMenu = () => dispatch(setIsCartOpen(false));
+
+  // Create searchField, showResults, and products array
+  const [searchField, setSearchField] = useState('');
+  
+  // called when input in SearchBox changes (user types/deletes letters)
+  const onSearchChange = (event) => {
+      const searchFieldString = event.target.value.toLocaleLowerCase();
+      setSearchField(searchFieldString); 
+  };
+
+  // Runs whenever user enters a key
+  const onEnter = (event) => {
+      // Want to go to search results page when user presses Enter
+      if (event.key ==='Enter') {
+          navigate(`/search/${searchField}`);
+      }
+  };
 
   return (
     <Fragment>
@@ -38,6 +57,12 @@ const Navigation = () => {
         </LogoContainer>
         <NavLinks>
           <NavLink to='/search' onClick={hideDropdownMenu}>SEARCH</NavLink>
+          
+          {/* <SearchBox 
+            placeholder='&#128269;  Search for Products' 
+            onChangeHandler ={ onSearchChange }
+            onKeyPress = { onEnter } /> */}
+
           <NavLink to='/shop'  onClick={hideDropdownMenu}>SHOP</NavLink>
 
           {currentUser ? (
