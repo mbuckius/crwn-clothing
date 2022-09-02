@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom';
 const Search = () => {
     const navigate = useNavigate();
 
-    // Create searchField, showResults, and products array
+    // Create searchField
     const [searchField, setSearchField] = useState('');
     
     // called when input in SearchBox changes (user types/deletes letters)
