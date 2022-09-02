@@ -6,7 +6,7 @@ export const SearchBoxContainer = styled.input`
     border-color: grey;
     outline: none;
     padding: 10px;
-    width: 300px;
+    width: 200px;
     line-height: 30px;
     margin-bottom: 30px;
 `;
