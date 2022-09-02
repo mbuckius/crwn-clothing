@@ -1,15 +1,16 @@
-import { useState, Fragment } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Fragment } from 'react';
+import { Outlet } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import CartIcon from '../../components/cart-icon/cart-icon.component';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
-import SearchBox from '../../components/search-box/search-box.component';
+import SearchDropdown from '../../components/search-dropdown/search-dropdown.component';
 
 import { selectIsCartOpen } from '../../store/cart/cart.selector';
 import { setIsCartOpen } from '../../store/cart/cart.action';
 import { selectCurrentUser } from '../../store/user/user.selector';
 import { signOutStart } from '../../store/user/user.action';
+import { selectIsSearchOpen } from '../../store/search/search.selector';
 
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
 
@@ -19,35 +20,22 @@ import {
   NavLink,
   LogoContainer,
 } from './navigation.styles';
+import { setIsSearchOpen } from '../../store/search/search.action';
+
 
 const Navigation = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(selectIsCartOpen);
+  const isSearchOpen = useSelector(selectIsSearchOpen);
 
   const signOutUser = () => dispatch(signOutStart());
   
   // Close dropdown menus when user navigates to a different page
   const hideDropdownMenu = () => dispatch(setIsCartOpen(false));
 
-  // Create searchField, showResults, and products array
-  const [searchField, setSearchField] = useState('');
-  
-  // called when input in SearchBox changes (user types/deletes letters)
-  const onSearchChange = (event) => {
-      const searchFieldString = event.target.value.toLocaleLowerCase();
-      setSearchField(searchFieldString); 
-  };
-
-  // Runs whenever user enters a key
-  const onEnter = (event) => {
-      // Want to go to search results page when user presses Enter
-      if (event.key ==='Enter') {
-          navigate(`/search/${searchField}`);
-      }
-  };
+  const toggleIsSearchOpen = () => dispatch(setIsSearchOpen(!isSearchOpen));
 
   return (
     <Fragment>
@@ -55,13 +43,10 @@ const Navigation = () => {
         <LogoContainer to='/'  onClick={hideDropdownMenu}>
           <CrwnLogo className='logo' />
         </LogoContainer>
+        
         <NavLinks>
-          <NavLink to='/search' onClick={hideDropdownMenu}>SEARCH</NavLink>
-          
-          {/* <SearchBox 
-            placeholder='&#128269;  Search for Products' 
-            onChangeHandler ={ onSearchChange }
-            onKeyPress = { onEnter } /> */}
+          <p onClick={toggleIsSearchOpen}>SEARCH</p>
+          {/* <NavLink to='/search' >SEARCH</NavLink> */}
 
           <NavLink to='/shop'  onClick={hideDropdownMenu}>SHOP</NavLink>
 
@@ -75,6 +60,7 @@ const Navigation = () => {
           <CartIcon />
         </NavLinks>
         {isCartOpen && <CartDropdown />}
+        {isSearchOpen && <SearchDropdown />}
       </NavigationContainer>
       <Outlet />
     </Fragment>
