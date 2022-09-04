@@ -19,7 +19,7 @@ const SearchResults = () => {
 
     useEffect(() => {
         dispatch(fetchCategoriesStart());
-    }, []);
+    });
 
     // Get categoriesMap and isLoading state using selectors
     const categoriesMap = useSelector(selectCategoriesMap);

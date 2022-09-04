@@ -16,7 +16,6 @@ import {
 
 import { 
     ProductContainer, 
-    FullScreen,
     Title,
     Info
 } from './product.styles';

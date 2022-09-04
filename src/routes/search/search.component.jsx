@@ -1,14 +1,6 @@
-import { useState, useEffect, Fragment } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useState } from 'react';
 
-import Spinner from '../../components/spinner/spinner.component';
 import SearchBox from "../../components/search-box/search-box.component";
-
-import { fetchCategoriesStart } from '../../store/categories/category.action';
-import {
-    selectCategoriesMap,
-    selectCategoriesIsLoading,
-} from '../../store/categories/category.selector';
 
 import { SearchContainer, Title } from './search.styles';
 import { useNavigate } from 'react-router-dom';
