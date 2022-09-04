@@ -5,8 +5,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import CartIcon from '../../components/cart-icon/cart-icon.component';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
 import SearchDropdown from '../../components/search-dropdown/search-dropdown.component';
+import SearchIcon from '../../components/search-icon/search-icon.component';
 
 import { selectIsCartOpen } from '../../store/cart/cart.selector';
+import { setIsSearchOpen } from '../../store/search/search.action';
 import { setIsCartOpen } from '../../store/cart/cart.action';
 import { selectCurrentUser } from '../../store/user/user.selector';
 import { signOutStart } from '../../store/user/user.action';
@@ -20,8 +22,6 @@ import {
   NavLink,
   LogoContainer,
 } from './navigation.styles';
-import { setIsSearchOpen } from '../../store/search/search.action';
-
 
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -33,9 +33,10 @@ const Navigation = () => {
   const signOutUser = () => dispatch(signOutStart());
   
   // Close dropdown menus when user navigates to a different page
-  const hideDropdownMenu = () => dispatch(setIsCartOpen(false));
-
-  const toggleIsSearchOpen = () => dispatch(setIsSearchOpen(!isSearchOpen));
+  const hideDropdownMenu = () => {
+    dispatch(setIsCartOpen(false));
+    dispatch(setIsSearchOpen(false));
+  }
 
   return (
     <Fragment>
@@ -45,7 +46,7 @@ const Navigation = () => {
         </LogoContainer>
         
         <NavLinks>
-          <p onClick={toggleIsSearchOpen}>SEARCH</p>
+          <SearchIcon />
           {/* <NavLink to='/search' >SEARCH</NavLink> */}
 
           <NavLink to='/shop'  onClick={hideDropdownMenu}>SHOP</NavLink>
