@@ -14,12 +14,17 @@ import { fetchCategoriesStart } from '../../store/categories/category.action';
 import { ProductCards, Title } from "./search-results.styles";
 
 const SearchResults = () => {
-    const {searchField} = useParams();
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(fetchCategoriesStart());
-    });
+    }, []);
+
+    // get searchField string from url
+    const {searchField} = useParams();
+
+    // Split searchField into an array
+    const searchFieldArray = searchField.split(" ");
 
     // Get categoriesMap and isLoading state using selectors
     const categoriesMap = useSelector(selectCategoriesMap);
@@ -37,13 +42,18 @@ const SearchResults = () => {
         var tempMap = JSON.parse(JSON.stringify(categoriesMap));
         
         // for each category in categoriesMap 
+        // eslint-disable-next-line
         Object.keys(categoriesMap).map((category) => {
             
             // Create temp array which will hold filtered products in current category
             const temp = (categoriesMap[category]).filter((product) => {
-                return (product.name.toLocaleLowerCase().includes(searchField) 
-                || product.description?.toLocaleLowerCase().includes(searchField)
-                || product.material?.toLocaleLowerCase().includes(searchField));
+
+                // Check if product contains any of the words is searchFieldArray
+                return searchFieldArray.some((word) => {
+                    return (product.name.toLocaleLowerCase().includes(word) 
+                    || product.description?.toLocaleLowerCase().includes(word)
+                    || product.material?.toLocaleLowerCase().includes(word));
+                });
             });
             
             // Update tempMap and resultCount
