@@ -4,9 +4,11 @@ import { useState } from 'react';
 import { 
     ProductDescriptionContainer, 
     Info, 
-    Subheading } from './product-description.styles';
+    Subheading,
+    Details
+ } from './product-description.styles';
 
-const ProductDescription = ({ description, material, price }) => {
+const ProductDescription = ({ description, material }) => {
     
     //  Create bools showDetails and showMaterials which indicate if text should render
     const [showDetails, setShowDetails] = useState(false);
@@ -18,14 +20,14 @@ const ProductDescription = ({ description, material, price }) => {
 
     return (
         <ProductDescriptionContainer>
-            <h3>{`$${price}`}</h3>
 
             <Info onClick={toggleShowDetails}>
                 <Subheading>
                     <h4>Details:</h4>
+                    {/* Show a plus or minus sign depending on showDetails */}
                     { showDetails? (<span>&#8722;</span>) : (<span>&#43;</span>) } 
-                </Subheading>            
-                { showDetails && (description? parse(description) : "description")}
+                </Subheading>           
+                { showDetails && <Details> {parse(description)} </Details> }
             </Info>
 
             <Info onClick={toggleShowMaterials}>
@@ -33,8 +35,7 @@ const ProductDescription = ({ description, material, price }) => {
                     <h4>Material and Care:</h4>
                     { showMaterials? (<span>&#8722;</span>) : (<span>&#43;</span>) } 
                 </Subheading>   
-
-                { showMaterials && (material? parse(material) : "material")}
+                { showMaterials && parse(material) }
             </Info>
         </ProductDescriptionContainer>
     );

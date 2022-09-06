@@ -69,6 +69,7 @@ const Product = () => {
                   
                 <Info>
                   <Title>{product.name.toUpperCase()}</Title>
+                  <h3>{`$${product.price}`}</h3>
           
                   <ProductDescription description={product.description} material={product.material} price={product.price} />
                   

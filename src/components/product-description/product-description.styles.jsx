@@ -26,3 +26,7 @@ export const Subheading = styled.div`
         font-size: 30px;
     }
 `;
+
+export const Details = styled.div`
+    padding-bottom: 20px;
+`;
