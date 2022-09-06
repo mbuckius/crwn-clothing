@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 import Button from '../button/button.component';
-import SearchBox from '../search-box/search-box.component';
 
 import { setIsSearchOpen } from '../../store/search/search.action';
 
 import {
   SearchDropdownContainer,
+  SearchBoxContainer
 } from './search-dropdown.styles';
 
 const SearchDropdown = () => {
@@ -45,11 +45,13 @@ const SearchDropdown = () => {
 
   return (
     <SearchDropdownContainer onMouseLeave={hideDropdown}>
-      <SearchBox 
+      
+      <SearchBoxContainer
+        type='search' 
         placeholder='&#128269;  Search for Products' 
-        onChangeHandler ={ onSearchChange }
-        onKeyPress = { onEnter } 
-      />
+        onChange={ onSearchChange } //onChange runs whenever change happens on input
+        onKeyPress={ onEnter }   //onKeyPress runs whenever user presses a key
+      /> 
 
       <Button onClick={goToResultsHandler}>SEARCH</Button>
     </SearchDropdownContainer>

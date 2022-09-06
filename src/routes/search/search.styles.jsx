@@ -18,3 +18,14 @@ export const Title = styled.h2`
     margin-bottom: 25px;
     text-align: center;
 `;
+
+export const SearchBoxContainer = styled.input`
+    -webkit-appearance: none;
+    border: solid;
+    border-color: grey;
+    outline: none;
+    padding: 10px;
+    width: 200px;
+    line-height: 30px;
+    margin-bottom: 30px;
+`;

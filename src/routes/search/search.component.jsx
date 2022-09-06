@@ -1,9 +1,11 @@
 import { useState } from 'react';
-
-import SearchBox from "../../components/search-box/search-box.component";
-
-import { SearchContainer, Title } from './search.styles';
 import { useNavigate } from 'react-router-dom';
+
+import { 
+    SearchContainer, 
+    Title, 
+    SearchBoxContainer 
+} from './search.styles';
 
 const Search = () => {
     const navigate = useNavigate();
@@ -29,11 +31,12 @@ const Search = () => {
         <div>
             <SearchContainer>
                 <Title>Search</Title>
-                <SearchBox 
+                <SearchBoxContainer
+                    type='search' 
                     placeholder='&#128269;  Search for Products' 
-                    onChangeHandler ={ onSearchChange }
-                    onKeyPress = { onEnter } 
-                />
+                    onChange={ onSearchChange } //onChange runs whenever change happens on input
+                    onKeyPress={ onEnter }   //onKeyPress runs whenever user presses a key
+                /> 
             </SearchContainer>
         </div>
     );
