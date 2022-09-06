@@ -13,7 +13,7 @@ import {
 
 const ProductCard = ({ product, category }) => {
   // Destructure product object
-  const { id, name, price, imageUrl } = product;
+  const { id, name, price, imageUrls } = product;
   const dispatch = useDispatch();
 
   // Get cartItems using selector
@@ -24,7 +24,7 @@ const ProductCard = ({ product, category }) => {
 
   return (
     <ProductCardContainer to={`/shop/${category}/${id}`}>
-      <img src={imageUrl} alt={`${name}`} />
+      <img src={imageUrls[0]} alt={`${name}`} />
       <Footer>
         <Name>{name}</Name>
         <Price>{price}</Price>

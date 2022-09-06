@@ -11,7 +11,6 @@ export const Title = styled.h2`
 `;
 
 export const ProductCards = styled.div`
-    margin: 50px auto;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     column-gap: 20px;
