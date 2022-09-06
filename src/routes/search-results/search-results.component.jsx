@@ -11,58 +11,60 @@ import {
 } from '../../store/categories/category.selector';
 import { fetchCategoriesStart } from '../../store/categories/category.action';
 
-import { ProductCards, Title } from "./search-results.styles";
+import { SearchResultsContainer, ProductCards, Title, NoResults } from "./search-results.styles";
 
 const SearchResults = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(fetchCategoriesStart());
-    }, []);
+    }, [dispatch]);
 
     // get searchField string from url
-    const {searchField} = useParams();
-
-    // Split searchField into an array
-    const searchFieldArray = searchField.split(" ");
+    var {searchField} = useParams();
+    searchField = searchField.toLocaleLowerCase();
 
     // Get categoriesMap and isLoading state using selectors
     const categoriesMap = useSelector(selectCategoriesMap);
     const isLoading = useSelector(selectCategoriesIsLoading);
 
-    const [filteredProductsMap, setFilteredProductsMap] = useState(categoriesMap);
-    const [resultCount, setResultCount] = useState(0);
+    // filteredProducts: array of objects {product, category, and weight}
+    const [filteredProducts, setFilteredProducts] = useState([]);
 
     // When searchField changes, filter categoriesMap with includes
     useEffect(() => {
-        // reset resultCount 
-        setResultCount(0);
+        // reset filteredProducts
+        setFilteredProducts([]);
 
-        // create a tempMap which has same contents as categoriesMap
-        var tempMap = JSON.parse(JSON.stringify(categoriesMap));
-        
+        // Split searchField into an array
+        const searchFieldArray = searchField.split(" ");
+
         // for each category in categoriesMap 
         // eslint-disable-next-line
         Object.keys(categoriesMap).map((category) => {
-            
-            // Create temp array which will hold filtered products in current category
-            const temp = (categoriesMap[category]).filter((product) => {
 
-                // Check if product contains any of the words is searchFieldArray
-                return searchFieldArray.some((word) => {
-                    return (product.name.toLocaleLowerCase().includes(word) 
-                    || product.description?.toLocaleLowerCase().includes(word)
-                    || product.material?.toLocaleLowerCase().includes(word));
-                });
+            // For each product in category
+            // eslint-disable-next-line
+            categoriesMap[category].map((product) => {
+
+                // Calculate weight of each product by adding the occurrences of each word in searchFieldArray
+                // If the word is in the title, it has a weight of 3 (more likely to match what the user wants)
+                const tempWeight = searchFieldArray.reduce((total, word) => 
+                    total + (3 * product.name.toLocaleLowerCase().includes(word)) 
+                    + product.description?.toLocaleLowerCase().includes(word)
+                    + product.material?.toLocaleLowerCase().includes(word), 0
+                );
+
+                // If the weight is more than 0, add it to the filteredProducts array
+                if (tempWeight) {
+                    setFilteredProducts(oldArray => [...oldArray, {product: product, category: category, weight: tempWeight}]);
+                }
             });
-            
-            // Update tempMap and resultCount
-            tempMap[category] = temp;
-            setResultCount(prevCount => (prevCount + temp.length));
         });
 
-        // Update filteredProductsMap
-        setFilteredProductsMap(tempMap);
+        // Sort filteredProducts array in descending order based on weight
+        setFilteredProducts(oldArray => [...oldArray.sort((a, b) => b.weight - a.weight)]);
+
     }, [searchField, categoriesMap]); 
 
     return (
@@ -70,30 +72,30 @@ const SearchResults = () => {
             {isLoading ? (
                 <Spinner />
             ) : (
-                <div>
-                    { resultCount ? (
+                <SearchResultsContainer>
+                    { filteredProducts.length ? (
                         <div>
-                            { resultCount === 1 ? (
-                                    <Title>{resultCount} Search result for {searchField}:</Title>
+                            { filteredProducts.length === 1 ? (
+                                    <Title>{filteredProducts.length} Search result for {searchField}:</Title>
                                 ) : (
-                                    <Title>{resultCount} Search results for {searchField}:</Title>
+                                    <Title>{filteredProducts.length} Search results for {searchField}:</Title>
                             )}
 
                             <ProductCards>
-                                {Object.keys(filteredProductsMap).map((category) => (
-                                    filteredProductsMap[category].map(product => {
+                                {
+                                    filteredProducts.map((obj) => {
                                         return (
-                                            <ProductCard key={product.id} product={product} category={category}/>
+                                            <ProductCard key={obj.product.id} product={obj.product} category={obj.category}/>
                                         );
                                     })
-                                ))}
+                                }
                             </ProductCards>
                         </div>
                         
                     ) : (
-                        <Title>No results for {searchField}</Title>
+                        <NoResults>No results for {searchField}</NoResults>
                     )}
-                </div>
+                </SearchResultsContainer>
             )}
         </Fragment>  
     );
