@@ -21,14 +21,14 @@ const CheckoutItem = ({ cartItem }) => {
   const dispatch = useDispatch();
 
   // Destructure cartItems
-  const { name, imageUrls, price, quantity } = cartItem;
+  const { name, imageUrls, price, quantity, size } = cartItem;
   
   // Access cartItems with useSelector
   const cartItems = useSelector(selectCartItems);
 
   // Functions so users can edit cart in checkout page
   const clearItemHandler = () => dispatch(clearItemFromCart(cartItems, cartItem));
-  const addItemHandler = () => dispatch(addItemToCart(cartItems, cartItem));
+  const addItemHandler = () => dispatch(addItemToCart(cartItems, cartItem, cartItem.size));
   const removeItemHandler = () => dispatch(removeItemFromCart(cartItems, cartItem));
 
   return (
@@ -36,7 +36,10 @@ const CheckoutItem = ({ cartItem }) => {
       <ImageContainer>
         <img src={imageUrls[0]} alt={`${name}`} />
       </ImageContainer>
-      <BaseSpan> {name} </BaseSpan>
+      <BaseSpan> 
+        <p>{name}</p>
+        <p>{size}</p>
+      </BaseSpan>
       <Quantity>
         <Arrow onClick={removeItemHandler}>&#10094;</Arrow>
         <Value>{quantity}</Value>

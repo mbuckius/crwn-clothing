@@ -41,9 +41,19 @@ const Product = () => {
   // Create products (map of subcategories and their products) and product (matching product based on id)
   const [products, setProducts] = useState(categoriesMap[category]); 
   const [product, setProduct] = useState();
+  const [size, setSize] = useState("");
 
-  // onClick function when user presses "Add to cart" button, Updates the cartItems with product
-  const addProductToCart = () => dispatch(addItemToCart(cartItems, product));
+  // Add product to cart with chosen size
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    dispatch(addItemToCart(cartItems, product, size));
+  };
+
+  // Change size when user chooses one
+  const handleChange = (event) => {
+    const { value } = event.target;
+    setSize(value);
+  };
   
   // Change products list whenever category, products, or categoriesMap changes
   useEffect(() => {
@@ -78,14 +88,19 @@ const Product = () => {
           
                   <ProductDescription description={product.description} material={product.material} price={product.price} />
                   
-                  <Button
-                      buttonType={BUTTON_TYPE_CLASSES.inverted}
-                      onClick={addProductToCart}
-                  >
-                      Add to cart
-                  </Button>
-                </Info>
+                  <form onSubmit={handleSubmit}>
+                    <select name="size" required onChange={handleChange}>
+                      <option value="">Size</option>
+                      <option value="small">small</option>
+                      <option value="medium">medium</option>
+                      <option value="large">large</option>
+                    </select>
 
+                    <Button buttonType={BUTTON_TYPE_CLASSES.inverted}>
+                      Add to cart
+                    </Button>
+                  </form>
+                </Info>
               </ProductContainer>
           )}
         </div>
