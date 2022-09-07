@@ -11,7 +11,7 @@ import {
   Price,
 } from './product-card.styles';
 
-const ProductCard = ({ product, category }) => {
+const ProductCard = ({ product, category, subcategory }) => {
   // Destructure product object
   const { id, name, price, imageUrls } = product;
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const ProductCard = ({ product, category }) => {
   const addProductToCart = () => dispatch(addItemToCart(cartItems, product));
 
   return (
-    <ProductCardContainer to={`/shop/${category}/${id}`}>
+    <ProductCardContainer to={`/shop/${category}/${id}?subcategory=${subcategory}`}>
       <img src={imageUrls[0]} alt={`${name}`} />
       <Footer>
         <Name>{name}</Name>

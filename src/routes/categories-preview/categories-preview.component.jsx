@@ -13,15 +13,17 @@ const CategoriesPreview = () => {
   const categoriesMap = useSelector(selectCategoriesMap);
   const isLoading = useSelector(selectCategoriesIsLoading);
 
+  console.log(categoriesMap);
+
   return (
     <Fragment>
       {isLoading ? (
         <Spinner />
       ) : (
         Object.keys(categoriesMap).map((title) => {
-          const products = categoriesMap[title];
+          const subcategories = categoriesMap[title];
           return (
-            <CategoryPreview key={title} title={title} products={products} />
+            <CategoryPreview key={title} title={title} subcategories={subcategories} />
           );
         })
       )}

@@ -10,7 +10,13 @@ import {
   selectCategoriesIsLoading,
 } from '../../store/categories/category.selector';
 
-import { CategoryContainer, Title } from './category.styles';
+import { 
+  CategoryContainer, 
+  Title,
+  SubTitle,
+  SubCategoryContainer,
+  Products
+} from './category.styles';
 
 const Category = () => {
   // Get category from URL using useParams()
@@ -21,11 +27,12 @@ const Category = () => {
   const isLoading = useSelector(selectCategoriesIsLoading);
 
   // Get list of products from matching category
-  const [products, setProducts] = useState(categoriesMap[category]);
+  // subCategories will be a map => subcategories : array of product objects
+  const [subCategories, setSubCategories] = useState(categoriesMap[category]);
 
   // Change products list whenever category or categoriesMap changes
   useEffect(() => {
-    setProducts(categoriesMap[category]);
+    setSubCategories(categoriesMap[category]);
   }, [category, categoriesMap]);
 
   return (
@@ -35,10 +42,19 @@ const Category = () => {
         <Spinner />
       ) : (
         <CategoryContainer>
-          {products &&
-            products.map((product) => (
-              <ProductCard key={product.id} product={product} category={category} />
-            ))}
+          {subCategories &&
+            Object.keys(subCategories).map((subCategory) => (
+              <SubCategoryContainer key={subCategory}>
+                <SubTitle>{ subCategory }</SubTitle>
+
+                <Products>
+                  { subCategories[subCategory].map((product) => 
+                        <ProductCard key={product.id} product={product} category={category} subcategory={subCategory} />
+                  )}
+                </Products>
+              </SubCategoryContainer>
+            ))
+          }
         </CategoryContainer>
       )}
     </Fragment>

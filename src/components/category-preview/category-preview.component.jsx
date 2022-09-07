@@ -6,18 +6,21 @@ import {
   Preview,
 } from './category-preview.styles';
 
-const CategoryPreview = ({ title, products }) => {
+const CategoryPreview = ({ title, subcategories }) => {
+
   return (
     <CategoryPreviewContainer>
       <h2>
         <Title to={title}>{title.toUpperCase()}</Title>
       </h2>
       <Preview>
-        {products
-          .filter((_, idx) => idx < 4)
-          .map((product) => (
-            <ProductCard key={product.id} product={product} category={title} />
-          ))}
+          {/* Display first product in each subcategory */}
+          { Object.keys(subcategories)
+            .filter((_, idx) => idx < 4)
+            .map((products) => (
+              <ProductCard key={subcategories[products][0].id} product={subcategories[products][0]} category={title} subcategory={products} />
+            ))
+          }
       </Preview>
     </CategoryPreviewContainer>
   );
