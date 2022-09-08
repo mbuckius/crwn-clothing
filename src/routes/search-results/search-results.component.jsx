@@ -58,7 +58,7 @@ const SearchResults = () => {
 
                     // If the weight is more than 0, add it to the filteredProducts array
                     if (tempWeight) {
-                        setFilteredProducts(oldArray => [...oldArray, {product: product, category: category, weight: tempWeight}]);
+                        setFilteredProducts(oldArray => [...oldArray, {product: product, category: category, subcategory: subcategory, weight: tempWeight}]);
                     }
                 });
             });
@@ -87,7 +87,7 @@ const SearchResults = () => {
                                 {
                                     filteredProducts.map((obj) => {
                                         return (
-                                            <ProductCard key={obj.product.id} product={obj.product} category={obj.category}/>
+                                            <ProductCard key={obj.product.id} product={obj.product} subcategory={obj.subcategory} category={obj.category}/>
                                         );
                                     })
                                 }
