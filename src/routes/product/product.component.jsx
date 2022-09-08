@@ -19,7 +19,9 @@ import {
     ProductContainer, 
     Title,
     Info,
-    Images
+    Images,
+    SizeOption,
+    FormContainer
 } from './product.styles';
 
 const Product = () => {
@@ -88,18 +90,21 @@ const Product = () => {
           
                   <ProductDescription description={product.description} material={product.material} price={product.price} />
                   
-                  <form onSubmit={handleSubmit}>
-                    <select name="size" required onChange={handleChange}>
-                      <option value="">Size</option>
-                      <option value="small">small</option>
-                      <option value="medium">medium</option>
-                      <option value="large">large</option>
-                    </select>
+                  <FormContainer onSubmit={handleSubmit}>
+                    <div>
+                    <SizeOption name="size" required onChange={handleChange}>
+                      <option value="">Select size</option>
+                      <option value="small">Small</option>
+                      <option value="medium">Medium</option>
+                      <option value="large">Large</option>
+                    </SizeOption>
+                    </div>
+                    
 
                     <Button buttonType={BUTTON_TYPE_CLASSES.inverted}>
                       Add to cart
                     </Button>
-                  </form>
+                  </FormContainer>
                 </Info>
               </ProductContainer>
           )}

@@ -29,10 +29,32 @@ export const Title = styled.h2`
 export const Info = styled.div`
     position: relative;
     width: 100%;
+`;
+
+export const SizeOption = styled.select` 
+    width: 100%;
+    margin: 0px auto;
+    border-style: none none solid;
+    border-color: gainsboro;
+    padding: 10px;
+    font-size: 15px;
+    text-align: center;
+`;
+
+export const FormContainer = styled.form`
+    margin: 25px 0px;
+    width: 100%;
+    padding: 0px auto;
 
     Button {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
+
+        margin: 25px auto;
+        width: 60%;
+        
+        
+        
+        // left: 50%;
+        // transform: translateX(-50%);
     }
 `;
+
