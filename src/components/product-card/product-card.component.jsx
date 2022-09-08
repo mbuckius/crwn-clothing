@@ -24,7 +24,7 @@ const ProductCard = ({ product, category, subcategory }) => {
 
   return (
     <ProductCardContainer to={`/shop/${category}/${id}?subcategory=${subcategory}`}>
-      <img src={imageUrls[0]} alt={`${name}`} />
+      <img src={imageUrls[0]} alt={`${name}`} /> 
       <Footer>
         <Name>{name}</Name>
         <Price>{price}</Price>
