@@ -45,20 +45,22 @@ const SearchResults = () => {
 
             // For each product in category
             // eslint-disable-next-line
-            categoriesMap[category].map((product) => {
+            Object.keys(categoriesMap[category]).map((subcategory) => {
+                // eslint-disable-next-line
+                categoriesMap[category][subcategory].map((product) => {
+                    // Calculate weight of each product by adding the occurrences of each word in searchFieldArray
+                    // If the word is in the title, it has a weight of 3 (more likely to match what the user wants)
+                    const tempWeight = searchFieldArray.reduce((total, word) => 
+                        total + (3 * product.name.toLocaleLowerCase().includes(word)) 
+                        + product.description?.toLocaleLowerCase().includes(word)
+                        + product.material?.toLocaleLowerCase().includes(word), 0
+                    );
 
-                // Calculate weight of each product by adding the occurrences of each word in searchFieldArray
-                // If the word is in the title, it has a weight of 3 (more likely to match what the user wants)
-                const tempWeight = searchFieldArray.reduce((total, word) => 
-                    total + (3 * product.name.toLocaleLowerCase().includes(word)) 
-                    + product.description?.toLocaleLowerCase().includes(word)
-                    + product.material?.toLocaleLowerCase().includes(word), 0
-                );
-
-                // If the weight is more than 0, add it to the filteredProducts array
-                if (tempWeight) {
-                    setFilteredProducts(oldArray => [...oldArray, {product: product, category: category, weight: tempWeight}]);
-                }
+                    // If the weight is more than 0, add it to the filteredProducts array
+                    if (tempWeight) {
+                        setFilteredProducts(oldArray => [...oldArray, {product: product, category: category, weight: tempWeight}]);
+                    }
+                });
             });
         });
 
