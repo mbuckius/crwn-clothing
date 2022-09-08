@@ -11,7 +11,7 @@ const CategoryPreview = ({ title, subcategories }) => {
   return (
     <CategoryPreviewContainer>
       <h2>
-        <Title to={title}>{title.toUpperCase()}</Title>
+        <Title to={`${title}#top`}>{title.toUpperCase()}</Title>
       </h2>
       <Preview>
           {/* Display first product in each subcategory */}
