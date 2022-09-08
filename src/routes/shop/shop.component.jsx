@@ -11,7 +11,7 @@ const Shop = () => {
 
   useEffect(() => {
     dispatch(fetchCategoriesStart());
-  }, []);
+  }, [dispatch]);
 
   return (
     <Routes>
@@ -20,5 +20,4 @@ const Shop = () => {
     </Routes>
   );
 };
-
 export default Shop;
