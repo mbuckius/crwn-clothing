@@ -47,8 +47,7 @@ const Navigation = () => {
         
         <NavLinks>
           <SearchIcon />
-          {/* <NavLink to='/search' >SEARCH</NavLink> */}
-
+    
           <NavLink to='/shop'  onClick={hideDropdownMenu}>SHOP</NavLink>
 
           {currentUser ? (
@@ -58,6 +57,7 @@ const Navigation = () => {
           ) : (
             <NavLink to='/auth'  onClick={hideDropdownMenu}>SIGN IN</NavLink>
           )}
+          
           <CartIcon />
         </NavLinks>
         {isCartOpen && <CartDropdown />}
