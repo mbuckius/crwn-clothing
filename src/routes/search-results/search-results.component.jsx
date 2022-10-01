@@ -46,8 +46,10 @@ const SearchResults = () => {
             // For each product in category
             // eslint-disable-next-line
             Object.keys(categoriesMap[category]).map((subcategory) => {
+
                 // eslint-disable-next-line
                 categoriesMap[category][subcategory].map((product) => {
+                    
                     // Calculate weight of each product by adding the occurrences of each word in searchFieldArray
                     // If the word is in the title, it has a weight of 3 (more likely to match what the user wants)
                     const tempWeight = searchFieldArray.reduce((total, word) => 
